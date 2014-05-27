@@ -29,28 +29,26 @@ MouseIsOver(WinTitle)
 	return WinExist(WinTitle . " ahk_id " . Win)
 }
 
+ShowVol(vol)
+{
+	VA_SetMasterVolume(vol)
+	 
+	If (vol < 1)
+		VolumeNotifyID := Notify("Volume 0%","",-2,"PG=100 PW=250 GC=555555 SI=0 SC=0 ST=0 TC=White MC=White TF=Segoe UI AC=ToggleMute", 220)
+	Else
+		VolumeNotifyID := Notify("Volume " . vol . "%","",-2,"PG=100 PW=250 GC=555555 SI=0 SC=0 ST=0 TC=White MC=White TF=Segoe UI AC=ToggleMute", 169)
+	
+	Notify("","",VA_GetMasterVolume(),"Progress",VolumeNotifyID)
+}
+
 #If top or MouseIsOver("ahk_class Shell_TrayWnd")
 	WheelUp:: 
 		Volume := Round(VA_GetMasterVolume() + Inc) 
-		VA_SetMasterVolume(Volume)
-		 
-		If (Volume < 1)
-			VolumeNotifyID := Notify("Volume 0%","",-2,"PG=100 PW=250 GC=555555 SI=0 SC=0 ST=0 TC=White MC=White TF=Segoe UI AC=ToggleMute", 220)
-		Else
-			VolumeNotifyID := Notify("Volume " . Volume . "%","",-2,"PG=100 PW=250 GC=555555 SI=0 SC=0 ST=0 TC=White MC=White TF=Segoe UI AC=ToggleMute", 169)
-		
-		Notify("","",VA_GetMasterVolume(),"Progress",VolumeNotifyID)
+		ShowVol(Volume)
 	Return
 	
 	~WheelDown:: 
 		Volume := Round(VA_GetMasterVolume() - Inc)
-		VA_SetMasterVolume(Volume)
-		 
-		If (Volume < 1)
-			VolumeNotifyID := Notify("Volume 0%","",-2,"PG=100 PW=250 GC=555555 SI=0 SC=0 ST=0 TC=White MC=White TF=Segoe UI AC=ToggleMute", 220)
-		Else
-			VolumeNotifyID := Notify("Volume " . Volume . "%","",-2,"PG=100 PW=250 GC=555555 SI=0 SC=0 ST=0 TC=White MC=White TF=Segoe UI AC=ToggleMute", 169)
-		
-		Notify("","",VA_GetMasterVolume(),"Progress",VolumeNotifyID)
+		ShowVol(Volume)
 	Return
 #If
