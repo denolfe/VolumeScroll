@@ -36,7 +36,7 @@ ShowVol(vol)
 	If (vol < 1)
 		VolumeNotifyID := Notify("Volume 0%","",-2,"PG=100 PW=250 GC=555555 SI=0 SC=0 ST=0 TC=White MC=White TF=Segoe UI AC=ToggleMute PB=767676 GR=0", 220)
 	Else
-		VolumeNotifyID := Notify("Volume " . vol . "%","",-2,"PG=100 PW=250 GC=555555 SI=0 SC=0 ST=0 TC=White MC=White TF=Segoe UI AC=ToggleMute PB=767676 GR=0", 169)
+		VolumeNotifyID := Notify("Volume " . vol . "%","",-2,"PG=100 PW=250 GC=555555 SI=0 SC=0 ST=0 TC=White MC=White TF=Segoe UI AC=ToggleMute PB=767676 GR=0", A_ScriptDir "\lib\speaker.ico")
 	
 	Notify("","",VA_GetMasterVolume(),"Progress",VolumeNotifyID)
 }
