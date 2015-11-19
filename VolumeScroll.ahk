@@ -24,7 +24,7 @@ Loop %MonitorCount%
 	TopVal := Mon%A_index%Top
 	Monitors[A_Index] := new MonitorCoords(A_Index, TopVal, RightVal)
 }
-SortedMons := SortMons(Monitors)
+SortedMons := SortArrayBy(Monitors, "Right")
 
 SetTimer, CheckMouse, 50
 Return
@@ -62,11 +62,11 @@ GetTopOfCurrentMon(mons)
 	}
 }
 
-SortMons(Arr) 
+SortArrayBy(Arr, Prop)
 {
 	t := Object()
 	for k, v in Arr
-		t[RegExReplace(v.Right,"\s")]:=v
+		t[RegExReplace(v.Prop,"\s")]:=v
 	for k, v in t
 		Arr[A_Index]:=v
 	return Arr
