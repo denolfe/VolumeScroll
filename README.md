@@ -14,7 +14,7 @@ Place mouse cursor to the very top of screen or over the taskbar and scroll
 
 ## TODO
 
-- [x] Support monitors with different resolutions
-- [ ] Tray config:
-  - [ ] Show/Hide tray icon
-  - [ ] Configure step increment
+- ~~Support monitors with different resolutions~~
+- Tray config:
+  - Show/Hide tray icon
+  - Configure step increment
