@@ -14,12 +14,24 @@ SetTitleMatchMode, 2
 ; Customized to use top of screen and taskbar instead of hotkey
 
 Inc := 2
+
+SysGet, MonitorCount, MonitorCount
+Monitors := {}
+Loop %MonitorCount%
+{
+	SysGet, Mon%A_Index%, Monitor, %A_Index%
+	RightVal := Mon%A_Index%Right
+	TopVal := Mon%A_index%Top
+	Monitors[A_Index] := new MonitorCoords(A_Index, TopVal, RightVal)
+}
+SortedMons := SortMons(Monitors)
+
 SetTimer, CheckMouse, 50
 Return
 
 CheckMouse:
 	MouseGetPos, mx, my
-	top := (my <= GetTopOfCurrentMon()) ? 1 : 0
+	top := (my <= GetTopOfCurrentMon(SortedMons)) ? 1 : 0
 Return
 
 MouseIsOver(WinTitle)
@@ -40,26 +52,14 @@ ShowVol(vol)
 	Notify("","",VA_GetMasterVolume(),"Progress",VolumeNotifyID)
 }
 
-GetTopOfCurrentMon()
+GetTopOfCurrentMon(mons)
 {
-	SysGet, MonitorCount, MonitorCount
-	Monitors := {}
-	Loop %MonitorCount%
-	{
-		SysGet, Mon%A_Index%, Monitor, %A_Index%
-		RightVal := Mon%A_Index%Right
-		TopVal := Mon%A_index%Top
-		Monitors[A_Index] := new MonitorCoords(A_Index, TopVal, RightVal)
-	}
-
 	MouseGetPos, x, y
-	SortedMons := SortMons(Monitors)
-	for key, value in SortedMons
+	for key, value in mons
 	{
 		if (x <= value.Right)
 			return value.Top
 	}
-
 }
 
 SortMons(Arr) 
