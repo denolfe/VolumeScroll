@@ -13,7 +13,12 @@ SetTitleMatchMode, 2
 ; Modeled after Volume Control from 7plus: https://code.google.com/p/7plus/ and http://www.autohotkey.com/forum/topic56419-15.html
 ; Customized to use top of screen and taskbar instead of hotkey
 
-Inc := 2
+Inc := 1
+if (FileExist(A_ScriptDir "\Settings.ini"))
+{
+	FileRead, ini, %A_ScriptDir%\Settings.ini
+	Inc := ini_getValue(ini, "Settings", "Increment")
+}
 
 SysGet, MonitorCount, MonitorCount
 Monitors := {}
