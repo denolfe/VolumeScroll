@@ -29,14 +29,13 @@ Loop %MonitorCount%
 	TopVal := Mon%A_index%Top
 	Monitors[A_Index] := new MonitorCoords(A_Index, TopVal, RightVal)
 }
-SortedMons := SortArrayBy(Monitors, "Right")
 
 SetTimer, CheckMouse, 50
 Return
 
 CheckMouse:
 	MouseGetPos, mx, my
-	top := (my <= GetTopOfCurrentMon(SortedMons)) ? 1 : 0
+	top := (my <= GetTopOfCurrentMon(Monitors)) ? 1 : 0
 Return
 
 MouseIsOver(WinTitle)
@@ -65,16 +64,6 @@ GetTopOfCurrentMon(mons)
 		if (x <= value.Right)
 			return value.Top
 	}
-}
-
-SortArrayBy(Arr, Prop)
-{
-	t := Object()
-	for k, v in Arr
-		t[RegExReplace(v.Prop,"\s")]:=v
-	for k, v in t
-		Arr[A_Index]:=v
-	return Arr
 }
 
 class MonitorCoords
